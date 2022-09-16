@@ -1,3 +1,4 @@
+const { json } = require('express')
 const livros = require('../models/livro.js')
 
 class livrosController{
@@ -7,6 +8,20 @@ class livrosController{
             res.status(200).json(livros)
         })
     }
+    // fazer busca de livros pelo autor 
+       static buscarLivrosAutor = (req,res)=>{
+        const autor = req.query.autor;
+        livros.find({'autor': autor},{},(err,livros)=>{
+            res.status(200).send(livros)
+        })
+         }
+     // fazer busca de livros pela editora 
+         static buscarLivrosEditora = (req,res)=>{
+          const editora = req.query.editora;
+          livros.find({'editora': editora},{},(err,livros)=>{
+              res.status(200).send(livros)
+          })
+           }  
     //cadastrar livro
     static cadastrarLivros = (req, res)=>{
         let livro = new livros(req.body);
